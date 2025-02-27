@@ -7,6 +7,33 @@ from PIL import Image
 #The user types out the name of the video they want to have put through the filter
 #In future versions, I would work with the GUI so a person can just drag and drop their video file.
 
+def select_videofile():
+    filetypes = (
+                        ('Video files (.mp4,.mov,.wmv,.mkv, .avi, .hevc, .av1, .avchd, .mts, .m2ts)', '*.mp4'),
+                        ('Video files (.mp4,.mov,.wmv,.mkv, .avi, .hevc, .av1, .avchd, .mts, .m2ts)', '*.mov'),
+                        ('Video files (.mp4,.mov,.wmv,.mkv, .avi, .hevc, .av1, .avchd, .mts, .m2ts)', '*.mp4'),
+                        ('Video files (.mp4,.mov,.wmv,.mkv, .avi, .hevc, .av1, .avchd, .mts, .m2ts)', '*.wmv'),
+                        ('Video files (.mp4,.mov,.wmv,.mkv, .avi, .hevc, .av1, .avchd, .mts, .m2ts)', '*.mkv'),
+                        ('Video files (.mp4,.mov,.wmv,.mkv, .avi, .hevc, .av1, .avchd, .mts, .m2ts)', '*.avi'),
+                        ('Video files (.mp4,.mov,.wmv,.mkv, .avi, .hevc, .av1, .avchd, .mts, .m2ts)', '*.hevc'),
+                        ('Video files (.mp4,.mov,.wmv,.mkv, .avi, .hevc, .av1, .avchd, .mts, .m2ts)', '*.av1'),
+                        ('Video files (.mp4,.mov,.wmv,.mkv, .avi, .hevc, .av1, .avchd, .mts, .m2ts)', '*.avchd'),
+                        ('Video files (.mp4,.mov,.wmv,.mkv, .avi, .hevc, .av1, .avchd, .mts, .m2ts)', '*.mts'),
+                        ('Video files (.mp4,.mov,.wmv,.mkv, .avi, .hevc, .av1, .avchd, .mts, .m2ts)', '*.m2ts'),
+                    
+                )
+
+    filename = fd.askopenfilename(title='Open a file',initialdir='.',filetypes=filetypes)
+
+    img = Image.open(filename)
+    resized_img = img.resize((int(widthWindow/2.2), int(heightWindow/2.2)), Image.Resampling.LANCZOS)
+    imgTk = ImageTk.PhotoImage(resized_img)
+    display.config(image=imgTk)
+    display.image = imgTk
+    window.update_idletasks()
+    my_canvas.configure(scrollregion=my_canvas.bbox("all"))
+    
+
 selectedVideo = input('What is the name of the video file?\n');
 print(selectedVideo);       
 #Then the filter creates a directory where to put all the frames of video.
