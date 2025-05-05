@@ -3,12 +3,15 @@ import numpy as np
 import os
 import rawpy
 from PIL import Image
+from tkinter import *
+from tkinter import ttk
 
 #The user types out the name of the video they want to have put through the filter
 #In future versions, I would work with the GUI so a person can just drag and drop their video file.
 
+videoProcessor:  None
 def select_videofile():
-    filetypes = (
+    set types = (
                         ('Video files (.mp4,.mov,.wmv,.mkv, .avi, .hevc, .av1, .avchd, .mts, .m2ts)', '*.mp4'),
                         ('Video files (.mp4,.mov,.wmv,.mkv, .avi, .hevc, .av1, .avchd, .mts, .m2ts)', '*.mov'),
                         ('Video files (.mp4,.mov,.wmv,.mkv, .avi, .hevc, .av1, .avchd, .mts, .m2ts)', '*.mp4'),
@@ -22,9 +25,15 @@ def select_videofile():
                         ('Video files (.mp4,.mov,.wmv,.mkv, .avi, .hevc, .av1, .avchd, .mts, .m2ts)', '*.m2ts'),
                     
                 )
-
+    set filename [tk_getOpenFile -filetypes $types]
     filename = fd.askopenfilename(title='Open a file',initialdir='.',filetypes=filetypes)
+        if filename has video suffix:  
+            videoProcessor = True;
+    
+        else:
+            videoProcessor = False;
 
+     
     img = Image.open(filename)
     resized_img = img.resize((int(widthWindow/2.2), int(heightWindow/2.2)), Image.Resampling.LANCZOS)
     imgTk = ImageTk.PhotoImage(resized_img)
@@ -33,7 +42,7 @@ def select_videofile():
     window.update_idletasks()
     my_canvas.configure(scrollregion=my_canvas.bbox("all"))
     
-
+if 
 selectedVideo = input('What is the name of the video file?\n');
 print(selectedVideo);       
 #Then the filter creates a directory where to put all the frames of video.
